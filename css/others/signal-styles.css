@@ -1,0 +1,81 @@
+body {
+    background: linear-gradient(180deg, #393949, #24242e);
+    font-family: 'YourThemeFont', sans-serif;
+    color: #fff;
+}
+
+.custom-container {
+    padding: 20px;
+}
+
+.custom-title {
+    font-size: 2rem;
+    color: #f3f4f7;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.signal-card {
+    background-color: #303040;
+    border-radius: 10px;
+    border: 1px solid #404050;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.signal-header {
+    background-color: #48485a;
+    color: #e0e0f0;
+    padding: 10px 15px;
+    border-bottom: 1px solid #404050;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.signal-link {
+    color: #ffc107;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.signal-link:hover {
+    text-decoration: underline;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.signal-row {
+    padding: 5px 0;
+    font-size: 0.9rem;
+}
+
+.signal-title {
+    font-weight: bold;
+}
+
+.signal-value {
+    color: #b0b0d0;
+}
+
+.profit-color {
+    color: #0f0;
+}
+
+.signal-color {
+    color: #ffc107;
+}
+
+.user-select-all {
+    user-select: all;
+}
+
+.flag-icon {
+    width: 24px;
+    height: 16px;
+    margin-right: 5px;
+    border-radius: 3px;
+}
