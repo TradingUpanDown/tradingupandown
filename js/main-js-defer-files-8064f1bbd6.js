@@ -8842,7 +8842,7 @@ let PricingWidget = function() {
                       , n = l.$("livechat").$("ui").getValue("mobile$bool") ? "mobile" : "desktop"
                       , i = l.$("livechat").$("settings").$("theme").getValue("name$string")
                       , o = {
-                        __type: "register",
+                        __type: "packages.html",
                         accountKey: E.ACCOUNT_KEY,
                         mID: e,
                         ua: window.navigator.userAgent,
