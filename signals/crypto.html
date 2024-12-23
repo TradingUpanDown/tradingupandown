@@ -69,8 +69,8 @@
     <!-- Stylesheet -->
     <link href="http://tradingupandown.com/signals/css/styles.css" rel="stylesheet"/>
 
-    <!-- JavaScript -->
-    <script src="http://tradingupandown.com/signals/js/chart.js"></script>
+        <!-- Chart.js Library for graphs -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8NPTPN859K"></script>
@@ -96,8 +96,15 @@
             m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)
         }(document,"script","https://chimpstatic.com/mcjs-connected/js/users/c60daf1227395b8e833571423/3c4b774176802af574afb2c8f.js");
     </script>
+    
+    <!-- Reload Page -->
+        <script>
+            setInterval(() => {
+                location.reload();
+            }, 60000); // 60000 milliseconds = 1 minute
+        </script>
 
-</head>
+    </head>
 
 <body>
 

@@ -69,8 +69,8 @@
         <!-- Stylesheet -->
         <link href="http://tradingupandown.com/signals/css/styles.css" rel="stylesheet"/>
 
-        <!-- JavaScript -->
-        <script src="http://tradingupandown.com/signals/js/chart.js"></script>
+        <!-- Chart.js Library for graphs -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
         <!-- Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-8NPTPN859K"></script>
@@ -97,6 +97,13 @@
             }(document,"script","https://chimpstatic.com/mcjs-connected/js/users/c60daf1227395b8e833571423/3c4b774176802af574afb2c8f.js");
         </script>
     
+        <!-- Reload Page -->
+        <script>
+            setInterval(() => {
+                location.reload();
+            }, 60000); // 60000 milliseconds = 1 minute
+        </script>
+
     </head>
 
     <body>
@@ -106,106 +113,107 @@
             <!-- Commodity cards -->
 
             <!-- Brent Crude Card -->
-        <div class="card signal">
-            <h3>Brent Crude</h3>
-            <canvas id="brentChart"></canvas>
-            <div class="signal-details">
-                <p><strong>From:</strong> UTC+01:00 15:53</p>
-                <p><strong>Till:</strong> UTC+01:00 19:53</p>
-                <p><strong>Action:</strong> Sell Stop</p>
-                <p><strong>Confidence:</strong> 55%</p>
-                <p><strong>Stop:</strong> 86.00</p>
-                <p><strong>Entry:</strong> 84.50</p>
-                <p><strong>Target:</strong> 83.00</p>
+            <div class="card signal">
+                <h3>Brent Crude</h3>
+                <canvas id="brentChart"></canvas>
+                <div class="signal-details">
+                    <p><strong>From:</strong> UTC+01:00 15:53</p>
+                    <p><strong>Till:</strong> UTC+01:00 19:53</p>
+                    <p><strong>Action:</strong> Sell Stop</p>
+                    <p><strong>Confidence:</strong> 55%</p>
+                    <p><strong>Stop:</strong> 1.2</p>
+                    <p><strong>Entry:</strong> 1.15</p>
+                    <p><strong>Target:</strong> 1.05</p>
+                </div>
             </div>
-        </div>
 
-        <!-- CL.1 (Crude Oil) Card -->
-        <div class="card signal">
-            <h3>Crude Oil (CL.1)</h3>
-            <canvas id="crudeOilChart"></canvas>
-            <div class="signal-details">
-                <p><strong>From:</strong> UTC+01:00 15:53</p>
-                <p><strong>Till:</strong> UTC+01:00 19:53</p>
-                <p><strong>Action:</strong> Sell Stop</p>
-                <p><strong>Confidence:</strong> 60%</p>
-                <p><strong>Stop:</strong> 78.50</p>
-                <p><strong>Entry:</strong> 77.80</p>
-                <p><strong>Target:</strong> 76.00</p>
+            <!-- CL.1 (Crude Oil) Card -->
+            <div class="card signal">
+                <h3>Crude Oil (CL.1)</h3>
+                <canvas id="crudeOilChart"></canvas>
+                <div class="signal-details">
+                    <p><strong>From:</strong> UTC+01:00 15:53</p>
+                    <p><strong>Till:</strong> UTC+01:00 19:53</p>
+                    <p><strong>Action:</strong> Sell Stop</p>
+                    <p><strong>Confidence:</strong> 55%</p>
+                    <p><strong>Stop:</strong> 1.2</p>
+                    <p><strong>Entry:</strong> 1.15</p>
+                    <p><strong>Target:</strong> 1.05</p>
+                </div>
             </div>
-        </div>
 
-        <!-- Copper Card -->
-        <div class="card signal">
-            <h3>Copper</h3>
-            <canvas id="copperChart"></canvas>
-            <div class="signal-details">
-                <p><strong>From:</strong> UTC+01:00 15:53</p>
-                <p><strong>Till:</strong> UTC+01:00 19:53</p>
-                <p><strong>Action:</strong> Sell Stop</p>
-                <p><strong>Confidence:</strong> 70%</p>
-                <p><strong>Stop:</strong> 4.20</p>
-                <p><strong>Entry:</strong> 4.12</p>
-                <p><strong>Target:</strong> 4.00</p>
+            <!-- Copper Card -->
+            <div class="card signal">
+                <h3>Copper</h3>
+                <canvas id="copperChart"></canvas>
+                <div class="signal-details">
+                    <p><strong>From:</strong> UTC+01:00 15:53</p>
+                    <p><strong>Till:</strong> UTC+01:00 19:53</p>
+                    <p><strong>Action:</strong> Sell Stop</p>
+                    <p><strong>Confidence:</strong> 55%</p>
+                    <p><strong>Stop:</strong> 1.2</p>
+                    <p><strong>Entry:</strong> 1.15</p>
+                    <p><strong>Target:</strong> 1.05</p>
+                </div>
             </div>
-        </div>
 
-        <!-- Natural Gas Card -->
-        <div class="card signal">
-            <h3>Natural Gas</h3>
-            <canvas id="naturalGasChart"></canvas>
-            <div class="signal-details">
-                <p><strong>From:</strong> UTC+01:00 15:53</p>
-                <p><strong>Till:</strong> UTC+01:00 19:53</p>
-                <p><strong>Action:</strong> Sell Stop</p>
-                <p><strong>Confidence:</strong> 65%</p>
-                <p><strong>Stop:</strong> 3.70</p>
-                <p><strong>Entry:</strong> 3.50</p>
-                <p><strong>Target:</strong> 3.30</p>
+            <!-- Natural Gas Card -->
+            <div class="card signal">
+                <h3>Natural Gas</h3>
+                <canvas id="naturalGasChart"></canvas>
+                <div class="signal-details">
+                    <p><strong>From:</strong> UTC+01:00 15:53</p>
+                    <p><strong>Till:</strong> UTC+01:00 19:53</p>
+                    <p><strong>Action:</strong> Sell Stop</p>
+                    <p><strong>Confidence:</strong> 55%</p>
+                    <p><strong>Stop:</strong> 1.2</p>
+                    <p><strong>Entry:</strong> 1.15</p>
+                    <p><strong>Target:</strong> 1.05</p>
+                </div>
             </div>
-        </div>
 
-        <!-- XAG (Silver) Card -->
-        <div class="card signal">
-            <h3>Silver (XAG)</h3>
-            <canvas id="silverChart"></canvas>
-            <div class="signal-details">
-                <p><strong>From:</strong> UTC+01:00 15:53</p>
-                <p><strong>Till:</strong> UTC+01:00 19:53</p>
-                <p><strong>Action:</strong> Sell Stop</p>
-                <p><strong>Confidence:</strong> 60%</p>
-                <p><strong>Stop:</strong> 23.50</p>
-                <p><strong>Entry:</strong> 23.20</p>
-                <p><strong>Target:</strong> 22.80</p>
+            <!-- XAG (Silver) Card -->
+            <div class="card signal">
+                <h3>Silver (XAG)</h3>
+                <canvas id="silverChart"></canvas>
+                <div class="signal-details">
+                    <p><strong>From:</strong> UTC+01:00 15:53</p>
+                    <p><strong>Till:</strong> UTC+01:00 19:53</p>
+                    <p><strong>Action:</strong> Sell Stop</p>
+                    <p><strong>Confidence:</strong> 55%</p>
+                    <p><strong>Stop:</strong> 1.2</p>
+                    <p><strong>Entry:</strong> 1.15</p>
+                    <p><strong>Target:</strong> 1.05</p>
+                </div>
             </div>
-        </div>
 
-        <!-- XAU (Gold) Card -->
-        <div class="card signal">
-            <h3>Gold (XAU)</h3>
-            <canvas id="goldChart"></canvas>
-            <div class="signal-details">
-                <p><strong>From:</strong> UTC+01:00 15:53</p>
-                <p><strong>Till:</strong> UTC+01:00 19:53</p>
-                <p><strong>Action:</strong> Sell Stop</p>
-                <p><strong>Confidence:</strong> 65%</p>
-                <p><strong>Stop:</strong> 1860.00</p>
-                <p><strong>Entry:</strong> 1850.00</p>
-                <p><strong>Target:</strong> 1835.00</p>
+            <!-- XAU (Gold) Card -->
+            <div class="card signal">
+                <h3>Gold (XAU)</h3>
+                <canvas id="goldChart"></canvas>
+                <div class="signal-details">
+                    <p><strong>From:</strong> UTC+01:00 15:53</p>
+                    <p><strong>Till:</strong> UTC+01:00 19:53</p>
+                    <p><strong>Action:</strong> Sell Stop</p>
+                    <p><strong>Confidence:</strong> 55%</p>
+                    <p><strong>Stop:</strong> 1.2</p>
+                    <p><strong>Entry:</strong> 1.15</p>
+                    <p><strong>Target:</strong> 1.05</p>
+                </div>
             </div>
         </div>
 
         <script>
             // Function to create each chart
-            function createChart(id, label, data, color) {
-                var ctx = document.getElementById(id).getContext('2d');
+            function createChart(chartId, data) {
+                var ctx = document.getElementById(chartId).getContext('2d');
                 new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: ['10:00', '10:05', '10:10', '10:15', '10:20'],
+                        labels: data.labels,
                         datasets: [{
-                            label: label,
-                            data: data,
+                            label: data.label,
+                            data: data.prices,
                             borderColor: 'rgba(244, 191, 28, 1)',
                             borderWidth: 2,
                             fill: false
@@ -220,14 +228,14 @@
                     }
                 });
             }
-            
-            // Updated chart data for each commodity
-            createChart('brentChart', 'Brent Price', [84.5, 84.7, 84.3, 84.8, 84.6], 'rgba(244, 191, 28, 1)');
-            createChart('crudeOilChart', 'Crude Oil (CL.1) Price', [77.8, 77.6, 77.7, 77.9, 78.0], 'rgba(255, 99, 132, 1)');
-            createChart('copperChart', 'Copper Price', [4.1, 4.15, 4.12, 4.14, 4.13], 'rgba(153, 102, 255, 1)');
-            createChart('naturalGasChart', 'Natural Gas Price', [3.5, 3.45, 3.47, 3.52, 3.50], 'rgba(75, 192, 192, 1)');
-            createChart('silverChart', 'Silver (XAG) Price', [23.4, 23.3, 23.35, 23.45, 23.4], 'rgba(192, 192, 192, 1)');
-            createChart('goldChart', 'Gold (XAU) Price', [1850, 1855, 1853, 1856, 1854], 'rgba(255, 215, 0, 1)');
+
+            // Chart data for each commodity
+            createChart('brentChart', { labels: ['10:00', '10:05', '10:10', '10:15', '10:20'], label: 'Brent Price', prices: [84.5, 84.7, 84.3, 84.8, 84.6] });
+            createChart('crudeOilChart', { labels: ['10:00', '10:05', '10:10', '10:15', '10:20'], label: 'Crude Oil (CL.1) Price', prices: [77.8, 77.6, 77.7, 77.9, 78.0] });
+            createChart('copperChart', { labels: ['10:00', '10:05', '10:10', '10:15', '10:20'], label: 'Copper Price', prices: [4.1, 4.15, 4.12, 4.14, 4.13] });
+            createChart('naturalGasChart', { labels: ['10:00', '10:05', '10:10', '10:15', '10:20'], label: 'Natural Gas Price', prices: [3.5, 3.45, 3.47, 3.52, 3.50] });
+            createChart('silverChart', { labels: ['10:00', '10:05', '10:10', '10:15', '10:20'], label: 'Silver (XAG) Price', prices: [23.4, 23.3, 23.35, 23.45, 23.4] });
+            createChart('goldChart', { labels: ['10:00', '10:05', '10:10', '10:15', '10:20'], label: 'Gold (XAU) Price', prices: [1850, 1855, 1853, 1856, 1854] });
         </script>
     </body>
 </html>
