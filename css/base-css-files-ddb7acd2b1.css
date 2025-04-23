@@ -15519,3 +15519,27 @@ iframe {
     border: none; /* Optional: remove border */
     overflow: hidden; /* Prevents scrolling */
   }
+
+/* Prevent article content from being hidden under the fixed header */
+main {
+  padding-top: 180px;
+}
+
+@media (max-width: 768px) {
+  main {
+    padding-top: 200px;
+  }
+}
+
+.article-breadcrumb {
+    margin-top: -60px; /* bring closer to top */
+    padding-top: 100px;
+    padding-left: 5px;
+  }
+  
+  @media (max-width: 768px) {
+    .article-breadcrumb {
+      padding-left: 0;
+      padding-top: 100px;
+    }
+  }
