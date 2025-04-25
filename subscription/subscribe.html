@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login | Tradingupandown</title>
+  <!-- Favicon -->
+  <link rel="icon" href="http://tradingupandown.com/assets/images/logo/Upandown_Logo_Favicon.png">
+  <title>Signal Subscription | Tradingupandown</title>
   <link rel="stylesheet" href="css/subscribe.min.css" />
 </head>
 <body>
@@ -16,17 +18,28 @@
         Join 357+ traders receiving Free Trading Signals and access insightful reports and technical analysis among many more features.
       </p>
 
-      <form action="https://tradinupandown.us14.list-manage.com/subscribe/post?u=c60daf1227395b8e833571423&amp;id=0986a4b2d6&amp;f_id=00a063e5f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+      <!-- Updated Mailchimp Form -->
+      <form action="https://tradingupandown.us14.list-manage.com/subscribe/post?u=c60daf1227395b8e833571423&amp;id=0986a4b2d6&amp;f_id=00a063e5f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
 
-        <label for="mce-EMAIL">Email</label>
-        <input type="email" name="EMAIL" id="mce-EMAIL" placeholder="Enter your email" required />
+        <label for="mce-EMAIL">Email Address <span class="asterisk">*</span></label>
+        <input type="email" name="EMAIL" class="required email" id="mce-EMAIL" required />
 
-        <label for="mce-FNAME">First Name</label>
-        <input type="text" name="FNAME" id="mce-FNAME" placeholder="Enter your first name" required />
+        <label for="mce-FNAME">First Name <span class="asterisk">*</span></label>
+        <input type="text" name="FNAME" class="required text" id="mce-FNAME" required />
 
-        <button type="submit" class="btn">Continue</button>
+        <div id="mce-responses" class="clear foot">
+          <div class="response" id="mce-error-response" style="display: none;"></div>
+          <div class="response" id="mce-success-response" style="display: none;"></div>
+        </div>
+
+        <div aria-hidden="true" style="position: absolute; left: -5000px;">
+          <input type="text" name="b_c60daf1227395b8e833571423_0986a4b2d6" tabindex="-1" value="">
+        </div>
+
+        <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="btn">Subscribe</button>
 
       </form>
+      <!-- End of Mailchimp Form -->
 
       <p class="signup-link">
         By creating an account, you agree to the 
@@ -35,10 +48,9 @@
         <a href="http://tradingupandown.com/legal/privacy_policy.html">Privacy Policy</a> 
         and consent to receiving signals, news, and marketing communications from 
         <a href="https://tradingupandown.com/">Tradingupandown.com</a>. 
-        You can unsubscribe at any time.
       </p>
+      <p class="signup-link">You can unsubscribe at any time by clicking the link in the footer of our emails. For information about our privacy practices, please visit our website.</p>
       <p class="signup-link">© 2024 Tradingupandown.com, All Rights Reserved</p>
-
     </div>
   </div>
 
@@ -50,6 +62,16 @@
       window.ftypes = new Array();
       fnames[0]='EMAIL';ftypes[0]='email';
       fnames[1]='FNAME';ftypes[1]='text';
+      fnames[2]='LNAME';ftypes[2]='text';
+      fnames[3]='ADDRESS';ftypes[3]='address';
+      fnames[4]='PHONE';ftypes[4]='phone';
+      fnames[5]='BIRTHDAY';ftypes[5]='birthday';
+      fnames[6]='COMPANY';ftypes[6]='text';
+      fnames[7]='MMERGE7';ftypes[7]='radio';
+      fnames[8]='MMERGE8';ftypes[8]='text';
+      fnames[9]='MMERGE9';ftypes[9]='radio';
+      fnames[10]='MMERGE10';ftypes[10]='radio';
+      fnames[11]='MMERGE11';ftypes[11]='radio';
     }(jQuery));
     var $mcj = jQuery.noConflict(true);
   </script>
