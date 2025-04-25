@@ -6,73 +6,70 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-}
-
-.login-container {
+  }
+  
+  .login-container {
     width: 100%;
     max-width: 420px;
     padding: 20px;
-}
-
-.login-card {
+  }
+  
+  .login-card {
     background-color: #fff;
     border-radius: 10px;
     padding: 40px 30px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     text-align: center;
-}
-
-.logo {
+  }
+  
+  .logo {
     width: 60px;
     margin-bottom: 0px;
-}
-
-.brand-name {
+  }
+  
+  .brand-name {
     color: #f4bf1c;
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 20px;
-}
-
-h2 {
+  }
+  
+  h2 {
     margin-bottom: 10px;
     color: #1f1f1f;
-}
-
-.description {
+  }
+  
+  .description {
     font-size: 14px;
     color: #57575c;
     margin-bottom: 25px;
     line-height: 1.4;
-}
-
-form {
+  }
+  
+  form {
     text-align: left;
-}
-
-label {
+  }
+  
+  label {
     display: block;
     margin: 12px 0 4px;
     font-weight: 500;
-    color: #1f1f1f;
-}
-
-input[type="email"],
-input[type="text"],
-input[type="password"] {
+  }
+  
+  input[type="email"],
+  input[type="password"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #f4bf1c;
     border-radius: 6px;
     box-sizing: border-box;
-    font-size: 14px;
-}
-
-.password-wrapper {
+  }
+  
+  .password-wrapper {
     position: relative;
-}
-
-.eye-icon {
+  }
+  
+  .eye-icon {
     position: absolute;
     right: 10px;
     top: 50%;
@@ -82,36 +79,27 @@ input[type="password"] {
     height: 20px;
     background-image: url('/assets/images/traderportal/hide-password.svg');
     background-size: cover;
-}
-
-.options {
+  }
+  
+  .options {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 12px 0;
     font-size: 13px;
-}
-
-.options label {
-    display: flex;
-    align-items: center;
-}
-
-.options input[type="checkbox"] {
-    margin-right: 6px;
-}
-
-.options a {
+  }
+  
+  .options a {
     color: #f4bf1c;
     text-decoration: none;
     transition: color 0.3s;
-}
-
-.options a:hover {
+  }
+  
+  .options a:hover {
     color: #d4a10c;
-}
-
-.btn {
+  }
+  
+  .btn {
     width: 100%;
     padding: 12px;
     background-color: #f4bf1c;
@@ -122,52 +110,56 @@ input[type="password"] {
     cursor: pointer;
     margin-top: 10px;
     transition: background-color 0.3s;
-}
-
-.btn:hover {
+  }
+  
+  .btn:hover {
     background-color: #d4a10c;
-}
-
-.signup-link {
+  }
+  
+  .alt-login {
+    display: block;
+    text-align: center;
+    margin-top: 14px;
+    color: #f4bf1c;
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .alt-login:hover {
+    color: #d4a10c;
+  }
+  
+  .signup-link {
     margin-top: 20px;
     font-size: 13px;
-    text-align: center;
-    color: #57575c;
-}
-
-.signup-link a {
+  }
+  
+  .signup-link a {
     color: #f4bf1c;
     text-decoration: none;
     transition: color 0.3s;
-}
-
-.signup-link a:hover {
+  }
+  
+  .signup-link a:hover {
     color: #d4a10c;
-}
-
-.marketing-title {
-    margin-top: 20px;
-    font-size: 13px;
-    text-align: left;
-    color: #57575c;
-    font: bold;
-}
-
-.marketing-content {
-    margin-top: 20px;
-    font-size: 13px;
-    text-align: Left;
-    color: #57575c;
-}
-
-/* Responses from Mailchimp */
-.response {
-    font-size: 13px;
-    color: red;
-    margin-top: 10px;
-    display: none;
-}
-
-#mc_embed_signup_scroll {
-    margin-top: 20px;
-}
+  }
+  
+  /* Make the textarea match inputs */
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #f4bf1c;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 14px;
+    resize: vertical;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Optional: add margin between fields for better spacing */
+  form input,
+  form textarea {
+    margin-bottom: 14px;
+  }
+  
