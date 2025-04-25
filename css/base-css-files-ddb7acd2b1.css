@@ -14192,6 +14192,10 @@ tr.child .dtr-data {
     background-image: url(http://tradingupandown.com/assets/images/icons/system-icons/facebook.svg)
 }
 
+.icon-tiktok {
+    background-image: url(http://tradingupandown.com/assets/images/icons/system-icons/tiktok.svg)
+}
+
 .icon-twitter {
     background-image: url(http://tradingupandown.com/assets/images/icons/system-icons/twitter.svg)
 }
@@ -14236,7 +14240,7 @@ tr.child .dtr-data {
     background-image: url(http://tradingupandown.com/assets/images/icons/system-icons/preview.svg)
 }
 
-.accordion-button::after,.btn-close,.dot,.dropdown-toggle::after,.icon-alert-header,.icon-chevron-down,.icon-chevron-left,.icon-chevron-right,.icon-copy-page,.icon-download,.icon-email,.icon-facebook,.icon-info,.icon-info-header,.icon-language,.icon-linkedin,.icon-login,.icon-menu,.icon-pocket,.icon-preview,.icon-reddit,.icon-telegram,.icon-twitter,.icon-whatsapp {
+.accordion-button::after,.btn-close,.dot,.dropdown-toggle::after,.icon-alert-header,.icon-chevron-down,.icon-chevron-left,.icon-chevron-right,.icon-copy-page,.icon-download,.icon-email,.icon-facebook,.icon-tiktok,.icon-info,.icon-info-header,.icon-language,.icon-linkedin,.icon-login,.icon-menu,.icon-pocket,.icon-preview,.icon-reddit,.icon-telegram,.icon-twitter,.icon-whatsapp {
     height: 1.5rem;
     width: 1.5rem;
     min-width: 1.5rem;
