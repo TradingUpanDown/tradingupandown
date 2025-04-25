@@ -63,8 +63,7 @@ label {
 
 input[type="text"],
 input[type="email"],
-input[type="password"],
-textarea {
+input[type="password"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #f4bf1c;
@@ -73,6 +72,18 @@ textarea {
     font-size: 14px;
     font-family: Arial, sans-serif;
     resize: vertical;
+}
+
+textarea {
+  width: 605px;
+  height: 205px;
+  padding: 10px;
+  border: 1px solid #f4bf1c;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  resize: vertical;
 }
 
 form input,
