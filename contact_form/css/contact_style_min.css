@@ -1,18 +1,18 @@
 
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: rgba(246, 238, 210, 0.1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: rgba(246, 238, 210, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .login-container {
-    width: 100%;
-    max-width: 700px;
-    padding: 20px;
+  width: 100%;
+  max-width: 100%;
+  padding: 20px;
 }
 
 .login-card {
@@ -22,62 +22,50 @@ body {
   background-color: #fff;
   border-radius: 10px;
   padding: 48px;
-  margin: 0px 24.3281px 100px;
+  margin: 0 auto 100px auto;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   text-align: center;
 }
 
-
 .logo {
-    width: 60px;
-    margin-bottom: 0px;
+  width: 60px;
+  margin-bottom: 0px;
 }
 
 .brand-name {
-    color: #f4bf1c;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 20px;
+  color: #f4bf1c;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
 h2 {
-    margin-bottom: 10px;
-    color: #1f1f1f;
+  margin-bottom: 10px;
+  color: #1f1f1f;
 }
 
 .description {
-    font-size: 14px;
-    color: #57575c;
-    margin-bottom: 25px;
-    line-height: 1.4;
+  font-size: 12px;
+  color: #57575c;
+  margin-bottom: 15px;
+  line-height: 1.4;
 }
 
 form {
-    text-align: left;
+  text-align: left;
 }
 
 label {
-    display: block;
-    margin: 12px 0 4px;
-    font-weight: 500;
+  display: block;
+  margin: 8px 0 4px;
+  font-weight: 500;
 }
 
 input[type="text"],
 input[type="email"],
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #f4bf1c;
-    border-radius: 6px;
-    box-sizing: border-box;
-    font-size: 14px;
-    font-family: Arial, sans-serif;
-    resize: vertical;
-}
-
+input[type="password"],
 textarea {
-  width: 605px;
-  height: 205px;
+  width: 100%;
   padding: 10px;
   border: 1px solid #f4bf1c;
   border-radius: 6px;
@@ -89,38 +77,38 @@ textarea {
 
 form input,
 form textarea {
-    margin-bottom: 14px;
+  margin-bottom: 14px;
 }
 
 .btn {
-    width: 100%;
-    padding: 12px;
-    background-color: #f4bf1c;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: background-color 0.3s;
+  width: 100%;
+  padding: 12px;
+  background-color: #f4bf1c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s;
 }
 
 .btn:hover {
-    background-color: #d4a10c;
+  background-color: #d4a10c;
 }
 
 .signup-link {
-    margin-top: 20px;
-    font-size: 13px;
-    text-align: center;
+  margin-top: 20px;
+  font-size: 13px;
+  text-align: center;
 }
 
 .signup-link a {
-    color: #f4bf1c;
-    text-decoration: none;
-    transition: color 0.3s;
+  color: #f4bf1c;
+  text-decoration: none;
+  transition: color 0.3s;
 }
 
 .signup-link a:hover {
-    color: #d4a10c;
+  color: #d4a10c;
 }
