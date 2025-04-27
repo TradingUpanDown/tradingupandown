@@ -15312,7 +15312,7 @@ body.enable-skeleton-loading .skeleton-table-loader td:after,body.enable-skeleto
 
 #news {
     padding: 20px;
-    background-color: ; /* Adjust background color as needed */
+    background-color: #FFF; /* Adjust background color as needed */
     border-top: 0px solid #333;
 }
 
