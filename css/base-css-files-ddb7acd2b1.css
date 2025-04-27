@@ -15556,9 +15556,11 @@ main {
 
 .about-card {
     background: #fff;
-    border: 1px solid #f4bf1c;
-    border-radius: 6px;
+    border: 10px;
+    border-radius: 10px;
     padding: 48px;
+    margin: 0 auto 100px auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     margin-bottom: 24px;
     box-shadow: none;
 }
