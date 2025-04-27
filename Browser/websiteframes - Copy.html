@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Website Rotator - Full Version</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    #countdown {
+      font-size: 24px;
+      margin: 20px 0;
+    }
+    button {
+      padding: 15px 30px;
+      margin: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+    #startButton {
+      background-color: #28a745;
+      color: white;
+    }
+    #startButton:hover {
+      background-color: #218838;
+    }
+    #stopButton {
+      background-color: #dc3545;
+      color: white;
+      display: none;
+    }
+    #stopButton:hover {
+      background-color: #c82333;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Website Rotator</h1>
+
+<div id="countdown">Click Start to begin!</div>
+
+<button id="startButton">Start</button>
+<button id="stopButton">Stop</button>
+
+<script>
+  const websites = [
+    "http://tradingupandown.com/",
+    "http://tradingupandown.com/products/indices.html",
+    "http://tradingupandown.com/legal/disclaimer.html",
+    "http://tradingupandown.com/products/crypto.html",
+    "http://tradingupandown.com/about.html",
+    "http://tradingupandown.com/products/forex.html",
+    "http://tradingupandown.com/products/commodities.html",
+    "http://tradingupandown.com/legal/privacy_policy.html",
+    "http://tradingupandown.com/register.html",
+    "http://tradingupandown.com/legal/terms_and_conditions.html",
+    "http://tradingupandown.com/products/stocks.html",
+    ""
+  ];
+
+  let index = 0;
+  let secondsLeft = 60;
+  let countdownTimer;
+  let redirectTimer;
+
+  const countdownDiv = document.getElementById('countdown');
+  const startButton = document.getElementById('startButton');
+  const stopButton = document.getElementById('stopButton');
+
+  function startRotation() {
+    startButton.style.display = 'none';
+    stopButton.style.display = 'inline-block';
+    
+    redirectNow(); // Immediate first redirect
+    startCountdown();
+  }
+
+  function startCountdown() {
+    countdownTimer = setInterval(() => {
+      secondsLeft--;
+      if (secondsLeft <= 0) {
+        secondsLeft = 60;
+      }
+      countdownDiv.textContent = `Next website in: ${secondsLeft} seconds`;
+    }, 1000);
+
+    redirectTimer = setInterval(() => {
+      redirectNow();
+    }, 60000);
+  }
+
+  function stopRotation() {
+    clearInterval(countdownTimer);
+    clearInterval(redirectTimer);
+    countdownDiv.textContent = 'Rotation stopped.';
+    startButton.style.display = 'inline-block';
+    stopButton.style.display = 'none';
+  }
+
+  function redirectNow() {
+    if (index >= websites.length) {
+      index = 0;
+    }
+    window.location.href = websites[index];
+    index++;
+    secondsLeft = 60;
+  }
+
+  startButton.addEventListener('click', startRotation);
+  stopButton.addEventListener('click', stopRotation);
+</script>
+
+</body>
+</html>
