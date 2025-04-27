@@ -1,5 +1,5 @@
-TradingUpAndDown
-TradingUpAndDown is a website offering trading news, live trading signals, and market insights to help traders stay informed and make confident decisions. The platform delivers timely signals for various cryptocurrencies and provides free trading tips to enhance user experience.
+Tradingupandown
+Tradingupandown is a website offering trading news, live trading signals, and market insights to help traders stay informed and make confident decisions. The platform delivers timely signals for various cryptocurrencies and provides free trading tips to enhance user experience.
 
 Table of Contents
 Features
@@ -55,5 +55,5 @@ This project is licensed under the MIT License. See the LICENSE file for details
 Contact
 For inquiries, feedback, or support:
 
-Website: TradingUpAndDown.com
-Email: support@tradingupanddown.com
+Website: Tradingupandown.com
+Email: support@Tradingupandown.com
