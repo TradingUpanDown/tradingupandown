@@ -14066,15 +14066,21 @@ tr.child .dtr-data {
     height: 350px
 }
 
-.features-cards .features-card {
-    width: 100%;
-    max-width: 480px;
-    min-width: 320px;
-    padding: 32px;
-    display: flex;
-    flex-direction: column;
-    height: auto
-}
+.features-card {
+    height: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px;
+    border-radius: 10px; /* Match Contact page rounding */
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  
+  .features-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  }
 
 .features-cards .features-card .features-card-list {
     list-style: none
