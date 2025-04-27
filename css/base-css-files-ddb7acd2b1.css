@@ -15553,3 +15553,32 @@ main {
       padding-top: 100px;
     }
   }
+
+.about-card {
+    background: #fff;
+    border: 1px solid #f4bf1c;
+    border-radius: 6px;
+    padding: 48px;
+    margin-bottom: 24px;
+    box-shadow: none;
+}
+
+.about-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.about-card-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #1f1f1f;
+    margin-bottom: 12px;
+}
+  
+.about-card-body p {
+    font-size: 14px;
+    color: #57575c;
+    line-height: 1.6;
+}
+  
