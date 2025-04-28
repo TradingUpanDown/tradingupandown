@@ -1,0 +1,52 @@
+@import url("http://tradingupandown.com/css/base-css-files-ddb7acd2b1.css");
+@import "all-sliders.js";
+@import "dynamic-router.js";
+@import "includes.js)";
+@import "main-js-files.js";
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.top-ad {
+  background-color: #222; /* Dark for top ad */
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+}
+
+.header {
+  background-color: #f4bf1c; /* Yellow Header */
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.layout {
+  display: flex;
+  min-height: 600px;
+}
+
+.sidebar-left, .sidebar-right {
+  background-color: #16a34a; /* Green sidebars */
+  flex: 0 0 200px;
+  padding: 20px;
+  color: #fff;
+}
+
+.main-content {
+  background-color: #fff;
+  flex: 1;
+  padding: 20px;
+  text-align: center;
+  color: #000;
+}
+
+.footer {
+  background-color: #222; /* Dark Footer */
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
