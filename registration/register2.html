@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register | Tradingupandown</title>
+  <link rel="stylesheet" href="merged_registration_styles.css" />
+</head>
+<body>
+
+  <div class="form-container">
+    <form class="registration-form" action="https://formspree.io/f/your-form-id" method="POST">
+      <h2>Create Account</h2>
+
+      <div class="form-group">
+        <label for="email">Email Address <span class="asterisk">*</span></label>
+        <input type="email" name="email" id="email" required />
+      </div>
+
+      <div class="form-group">
+        <label for="first-name">First Name <span class="asterisk">*</span></label>
+        <input type="text" name="first-name" id="first-name" required />
+      </div>
+
+      <div class="form-group">
+        <label for="last-name">Last Name <span class="asterisk">*</span></label>
+        <input type="text" name="last-name" id="last-name" required />
+      </div>
+
+      <div class="form-group">
+        <label for="gender">Gender <span class="asterisk">*</span></label>
+        <select name="gender" id="gender" required>
+          <option value="">Select</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Prefer not to say">Prefer not to say</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="age">Age <span class="asterisk">*</span></label>
+        <select name="age" id="age" required>
+          <option value="">Select</option>
+          <option value="Under 18">Under 18</option>
+          <option value="18-24">18–24</option>
+          <option value="25-34">25–34</option>
+          <option value="35-44">35–44</option>
+          <option value="45-54">45–54</option>
+          <option value="55+">55+</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="nationality">Nationality <span class="asterisk">*</span></label>
+        <select name="nationality" id="nationality" required>
+          <option value="">Select your country</option>
+          <optgroup label="Middle East">
+            <option value="Bahrain">Bahrain</option>
+            <option value="Cyprus">Cyprus</option>
+            <option value="Egypt">Egypt</option>
+            <option value="Iran">Iran</option>
+            <option value="Iraq">Iraq</option>
+            <option value="Israel">Israel</option>
+            <option value="Jordan">Jordan</option>
+            <option value="Kuwait">Kuwait</option>
+            <option value="Lebanon">Lebanon</option>
+            <option value="Oman">Oman</option>
+            <option value="Palestine">Palestine</option>
+            <option value="Qatar">Qatar</option>
+            <option value="Saudi Arabia">Saudi Arabia</option>
+            <option value="Syria">Syria</option>
+            <option value="Turkey">Turkey</option>
+            <option value="United Arab Emirates">United Arab Emirates</option>
+            <option value="Yemen">Yemen</option>
+          </optgroup>
+        </select>
+      </div>
+
+      
+<div class="form-group">
+  <label for="package">Choose a Signal Trading Package:</label>
+  <select name="package" id="package" required>
+    <option value="">Select a package</option>
+    <option value="Basic">Basic - Signals</option>
+    <option value="Premium">Premium - Detailed Signals</option>
+    <option value="VIP">VIP - Exclusive Signals</option>
+  </select>
+</div>
+
+      
+<div class="form-group">
+  <label for="experience">Select Your Trading Experience Level:</label>
+  <select name="experience" id="experience" required>
+    <option value="">Select experience level</option>
+    <option value="Beginner">Beginner</option>
+    <option value="Intermediate">Intermediate</option>
+    <option value="Advanced">Advanced</option>
+    <option value="Other">Other</option>
+  </select>
+</div>
+
+      
+<div class="form-group">
+  <label for="payment">Payment Option:</label>
+  <select name="payment" id="payment" required>
+    <option value="">Select payment method</option>
+    <option value="Cryptocurrency">Cryptocurrency</option>
+    <option value="Bank Transfer">Bank Transfer</option>
+    <option value="Credit Card">Credit Card</option>
+    <option value="Other">Other</option>
+  </select>
+</div>
+<div class="form-group" id="wallet-group" style="display: none;">
+  <label for="wallet">Wallet Address</label>
+  <input type="text" name="wallet" id="wallet" placeholder="Enter your wallet address" />
+</div>
+
+
+      <div class="form-group options">
+        <label>
+          <input type="checkbox" name="agree" required />
+          By creating an account, you agree to the
+          <a href="https://tradingupandown.com/legal/terms_and_conditions.html" target="_blank">Terms of Use</a> and
+          <a href="https://tradingupandown.com/legal/privacy_policy.html" target="_blank">Privacy Policy</a>,
+          and consent to receiving signals, news, and marketing communications from
+          <strong>Tradingupandown.com</strong>. You can unsubscribe at any time.
+        </label>
+      </div>
+
+      <button type="submit" class="submit-btn">Register</button>
+    </form>
+  </div>
+
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const paymentSelect = document.getElementById('payment');
+      const walletGroup = document.getElementById('wallet-group');
+      paymentSelect.addEventListener('change', function () {
+        walletGroup.style.display = this.value === 'Cryptocurrency' ? 'block' : 'none';
+      });
+    });
+  </script>
+
+</body>
+</html>
