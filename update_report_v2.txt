@@ -1,0 +1,5 @@
+Original HTML: market_clock2.html
+Fixed HTML (same folder): market_clock2_fixed.html
+
+Rewritten references:
+- None

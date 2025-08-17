@@ -1,0 +1,5 @@
+Input HTML: market_clock2.html
+Output HTML: /mnt/data/market_clock3_fixed.html
+
+Rewritten references (old -> new):
+- None
