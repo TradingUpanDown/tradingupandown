@@ -62,11 +62,11 @@ function createLocalClock(idElement, region){
 
     function loadImages()
     {
-        hImg.src = "marcket_clock/mcl/light_new/"+theme+"/h.png";
-        mImg.src = "marcket_clock/mcl/light_new/"+theme+"/m.png";
-        sImg.src = "marcket_clock/mcl/light_new/"+theme+"/s.png";
+        hImg.src = "market_clock/mcl/light_new/"+theme+"/h.png";
+        mImg.src = "market_clock/mcl/light_new/"+theme+"/m.png";
+        sImg.src = "market_clock/mcl/light_new/"+theme+"/s.png";
 
-        bgImg.src = "marcket_clock/mcl/light_new/"+theme+"/bg.png";
+        bgImg.src = "market_clock/mcl/light_new/"+theme+"/bg.png";
         bgImg.onload = function(){ update(); };
     }
 
@@ -197,7 +197,7 @@ function createLocalClock(idElement, region){
 
     SectorImage.prototype.getImage = function(active)
     {
-        var pathPrefix = "marcket_clock/mcl/light_new/sectors/";
+        var pathPrefix = "market_clock/mcl/light_new/sectors/";
         var postfix = ".png";
 
         var imgStr;
@@ -210,7 +210,7 @@ function createLocalClock(idElement, region){
             imgStr = "deactive";
         }
 
-        var pathImg = "marcket_clock/mcl/light_new/" + theme + "/" + pathPrefix + this.path + postfix;
+        var pathImg = "market_clock/mcl/light_new/" + theme + "/" + pathPrefix + this.path + postfix;
 
         if(this[imgStr]) {
             return this[imgStr];
