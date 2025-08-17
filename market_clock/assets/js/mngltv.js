@@ -421,7 +421,7 @@ function init(){
 var isDrawBase = false;
 function loadImages()
 {
-    var folder = (getCookie('theme')=='dark'? "mcl/dark_new/":'market_clock/mcl/light_new/')
+    var folder = (getCookie('theme')=='dark'? "market_clock/mcl/dark_new/":'market_clock/mcl/light_new/')
     hImg.src = folder+"h.png";
     mImg.src = folder+"m.png";
     sImg.src = folder+"s.png";
@@ -694,7 +694,7 @@ ZoneImage.prototype.getImage = function()
     }
     else {
         this.image = new Image();
-        this.image.src = (getCookie('theme')=='dark'? "mcl/dark_new/":'market_clock/mcl/light_new/') + this.path + ".png";
+        this.image.src = (getCookie('theme')=='dark'? "market_clock/mcl/dark_new/":'market_clock/mcl/light_new/') + this.path + ".png";
     }
 }
 
@@ -721,7 +721,7 @@ SectorImage.prototype.getImagePoint = function(active, isCity)
 
     var imgStr = "point";
 
-    var pathImg = (getCookie('theme')=='dark'? "mcl/dark_new/lines_":'market_clock/mcl/light_new/lines_') + this.pointName + postfix;
+    var pathImg = (getCookie('theme')=='dark'? "market_clock/mcl/dark_new/lines_":'market_clock/mcl/light_new/lines_') + this.pointName + postfix;
 
     if(this[imgStr]) {
         return this[imgStr];
@@ -753,7 +753,7 @@ SectorImage.prototype.getImage = function(active, isCity)
         pathPrefix = "cities/";
         imgStr += "_city";
     }
-    var pathImg = (getCookie('theme')=='dark'? "mcl/dark_new/":'market_clock/mcl/light_new/') + pathPrefix + this.path + postfix;
+    var pathImg = (getCookie('theme')=='dark'? "market_clock/mcl/dark_new/":'market_clock/mcl/light_new/') + pathPrefix + this.path + postfix;
     if(this[imgStr]) {
         return this[imgStr];
     }
