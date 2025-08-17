@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tradingupandown — Market Dashboard (Adjusted Theme)</title>
+<style>
+  :root{
+    /* Global typography & colors */
+    --ink:#57575c;             /* TEXT COLOR (requested) */
+    --muted:#57575c;           /* keep muted the same to match spec */
+    --panel:#ffffff;
+    --bg:#f6f8fb;
+    --border:#e5ebf3;
+    --accent:#FFC107;          /* OPEN session */
+    --accent-2:#FFC107;
+    --success:#10b981;         /* dots (unchanged) */
+    /* Clock palette (requested) */
+    --ring-outer:#191c1f;      /* outer ring */
+    --ring-minute:#ccd3dd;     /* minute ring / tick text: lighter for better visibility */
+    --clock-bg:#191c1f;        /* inner backdrop */
+    --clock-closed:#d6dde7;    /* closed bands (lighter for contrast) */
+    --shadow:0 1px 2px rgba(16,24,40,.06);
+    --clock-size: 640px;       /* BIGGER clock */
+    --sidebar: 340px;
+    --radius: 12px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Helvetica, Arial, system-ui, -apple-system, Segoe UI, Inter, Roboto, sans-serif; /* requested */
+  }
+  .wrap{max-width:1150px;margin:18px auto;padding:0 12px}
+  .grid{display:grid;grid-template-columns:1fr var(--sidebar);gap:18px;align-items:start}
+  @media (max-width: 1024px){ .grid{grid-template-columns:1fr} }
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+  .card h2{font-size:18px;margin:0;padding:14px 16px;border-bottom:1px solid var(--border);color:var(--ink)}
+  .card .body{padding:16px}
+  /* Clock card */
+  .clock-body{display:flex;flex-direction:column;align-items:center}
+  .clock-inner{width:var(--clock-size);max-width:100%}
+  .clock-foot{margin-top:10px;background:#0e1726;color:#e8eef9;padding:6px 10px;border-radius:8px;font-size:12px;box-shadow:0 1px 0 rgba(0,0,0,.15)}
+  /* Right column (gauge + stories) */
+  .gauge{width:100%;max-width:360px;margin:6px auto 0;display:block}
+  .kpi{display:flex;gap:8px;margin-top:8px}
+  .kpi .row{flex:2}
+  .krow{display:flex;justify-content:space-between;margin:6px 0}
+  .krow .l{color:var(--muted)}
+  .krow .v{font-weight:700}
+  /* Smaller Top stories text (requested) */
+  .stories .item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:12px}
+  .stories .item:last-child{border-bottom:0}
+  .stories .meta{color:var(--muted);font-size:10px;margin-top:2px}
+  .stories .dot{width:8px;height:8px;border-radius:50%;background:#1e293b;margin-top:6px}
+  /* Market clocks list */
+  #marketClocks{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;justify-content:center}
+  .mclock{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:6px 8px;font-size:12px;min-width:120px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center}
+  .mclock .name{font-weight:600;color:var(--ink);margin-bottom:4px;font-size:13px;text-align:center}
+  .mclock .time{font-family:monospace;font-size:14px;margin-bottom:2px;color:var(--ring-outer)}
+  .mclock .status{font-size:11px;font-weight:600}
+
+  /* Make clock numbers more visible */
+  svg#wheel text{font-size:15px !important;font-weight:600;}
+  /* Rates table */
+  .crumbs{color:var(--muted);font-size:12px;margin-bottom:8px}
+  table{width:100%;border-collapse:collapse}
+  th,td{padding:9px 8px;border-bottom:1px solid var(--border);text-align:left;font-size:13px;color:var(--ink)}
+  th{background:#f8fafc;font-weight:700}
+  td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .up{color:#16a34a}
+  .down{color:#ef4444}
+</style>
+</head>
+<body>
+    <div class="wrap">
+    <div class="grid">
+      <!-- Left: Market Clock card -->
+      <section class="card">
+        <h2>Market Clock</h2>
+        <div class="body clock-body">
+          <div class="clock-inner">
+            <svg id="wheel" viewBox="0 0 900 900" aria-label="Market 24h Wheel"></svg>
+          </div>
+          <div class="clock-foot">Live UTC dial · Highlights show currently open sessions</div>
+          <!-- Time zone selector -->
+          <div style="margin-top:8px;text-align:center; font-size:12px; color:var(--muted)">
+            <label for="tzSelect" style="margin-right:4px">Time Zone:</label>
+            <select id="tzSelect" style="padding:4px 6px; border:1px solid var(--border); border-radius:4px; background:var(--panel); color:var(--ink); font-size:12px">
+              <option value="UTC" selected>UTC</option>
+              <option value="America/New_York">New York</option>
+              <option value="Europe/London">London</option>
+              <option value="Europe/Amsterdam">Amsterdam</option>
+              <option value="Asia/Tokyo">Tokyo</option>
+              <option value="Australia/Sydney">Sydney</option>
+            </select>
+          </div>
+
+          <!-- Single market clocks -->
+          <div id="marketClocks"></div>
+        </div>
+      </section>
+
+      <!-- Right: Gauge + Stories -->
+      <aside>
+        <section class="card" style="margin-bottom:18px">
+          <h2>XAUUSD</h2>
+          <div class="body">
+            <svg id="gauge" class="gauge" viewBox="0 0 220 120" aria-label="Bias gauge"></svg>
+            <div class="kpi">
+              <div class="row">
+                <div class="krow"><span class="l">Avg Forecast</span><span class="v" id="xauPrice">3359.33</span></div>
+                <div class="krow"><span class="l" style="color:#16a34a">67% Bullish</span><span></span></div>
+                <div class="krow"><span class="l" style="color:#ef4444">0% Bearish</span><span></span></div>
+                <div class="krow"><span class="l" style="color:#64748b">33% Sideways</span><span></span></div>
+                <div class="krow"><span class="l">Bias</span><span class="v" id="biasTxt" style="color:#10b981">Bullish</span></div>
+              </div>
+            </div>
+            <div style="margin-top:10px;color:var(--muted);font-size:12px;border-top:1px solid var(--border);padding-top:10px">
+              Updated <span id="updTime">—</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Top stories›</h2>
+          <div class="body stories" id="stories"></div>
+        </section>
+      </aside>
+    </div>
+
+    <!-- Rates Table -->
+    <section class="card" style="margin-top:18px">
+      <div class="body">
+        <div class="crumbs">Markets / Forex market / Rates / Major</div>
+        <table id="rates">
+          <thead>
+            <tr>
+              <th style="width:110px">Symbol</th>
+              <th>Pair</th>
+              <th class="num">Price</th>
+              <th class="num">Change %</th>
+              <th class="num">Change</th>
+              <th class="num">Bid</th>
+              <th class="num">Ask</th>
+              <th class="num">High</th>
+              <th class="num">Low</th>
+              <th>Tech Rating</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+<script>
+(function(){
+  const pad=n=>String(n).padStart(2,'0');
+
+  const SESSIONS=[
+    {key:'wellington', name:'WELLINGTON', tz:'Pacific/Auckland', segs:[['08:00','17:00']]},
+    {key:'sydney', name:'SYDNEY', tz:'Australia/Sydney', segs:[['08:00','17:00']]},
+    {key:'tokyo', name:'TOKYO', tz:'Asia/Tokyo', segs:[['09:00','11:30'],['12:30','15:00']]},
+    {key:'shanghai', name:'SHANGHAI', tz:'Asia/Shanghai', segs:[['09:30','11:30'],['13:00','15:00']]},
+    {key:'hongkong', name:'HONG KONG', tz:'Asia/Hong_Kong', segs:[['09:30','12:00'],['13:00','16:00']]},
+    {key:'singapore', name:'SINGAPORE', tz:'Asia/Singapore', segs:[['09:00','17:00']]},
+    {key:'mumbai', name:'NSE - MUMBAI', tz:'Asia/Kolkata', segs:[['09:15','15:30']]},
+    {key:'dubai', name:'DFM - DUBAI', tz:'Asia/Dubai', segs:[['10:00','15:00']]},
+    {key:'riyadh', name:'TADAWUL - RIYADH', tz:'Asia/Riyadh', segs:[['10:00','15:00']]},
+    {key:'frankfurt', name:'FWB - FRANKFURT', tz:'Europe/Berlin', segs:[['08:00','16:30']]},
+    {key:'zurich', name:'SIX - ZURICH', tz:'Europe/Zurich', segs:[['09:00','17:30']]},
+    {key:'london', name:'LSE - LONDON', tz:'Europe/London', segs:[['08:00','16:30']]},
+    {key:'johannesburg', name:'JSE - JOHANNESBURG', tz:'Africa/Johannesburg', segs:[['09:00','17:00']]},
+    {key:'madrid', name:'BME - MADRID', tz:'Europe/Madrid', segs:[['09:00','17:30']]},
+    {key:'milan', name:'MTA - MILAN', tz:'Europe/Rome', segs:[['09:00','17:30']]},
+    {key:'paris', name:'EURONEXT - PARIS', tz:'Europe/Paris', segs:[['09:00','17:30']]},
+    {key:'nyse', name:'NYSE NASDAQ - NEW YORK', tz:'America/New_York', segs:[['09:30','16:00']]},
+    {key:'tsx', name:'TSX - TORONTO', tz:'America/Toronto', segs:[['09:30','16:00']]},
+    {key:'chx', name:'CHX - CHICAGO', tz:'America/Chicago', segs:[['09:30','16:00']]},
+    {key:'b3', name:'B3 - SÃO PAULO', tz:'America/Sao_Paulo', segs:[['10:00','17:30']]},
+  ];
+
+  const TAU=Math.PI*2; const CX=450, CY=450; const R_OUT=360, R_RING=330, R_BAND_OUT=300, R_BAND_IN=210;
+
+  // Tracks the currently selected time‑zone offset in minutes relative to UTC. A positive value
+  // means the selected zone is ahead of UTC (e.g. +120 for GMT+2).
+  let tzOffsetMinutes = 0;
+
+  // Given an IANA time‑zone string, returns its offset from UTC in minutes.
+  function getTZOffset(tz){
+    const parts = new Intl.DateTimeFormat('en-US', { timeZone: tz, timeZoneName: 'shortOffset' }).formatToParts(new Date());
+    const off = (parts.find(p => p.type === 'timeZoneName') || {}).value || 'GMT+00:00';
+    const m = off.match(/GMT([+-])(\d{1,2})(?::(\d{2}))?/);
+    if(!m) return 0;
+    const sign = m[1] === '-' ? -1 : 1;
+    const hh = +m[2];
+    const mm = +(m[3] || '0');
+    return sign * (hh * 60 + mm);
+  }
+  // Convert a minute value into an angle on the dial, adjusting for the current tzOffsetMinutes.
+  const minToAngle = m => {
+    // Shift the minute by the offset; ensure within 0–1440 range before converting to angle.
+    const shifted = (m - tzOffsetMinutes + 1440) % 1440;
+    return (-Math.PI/2) + (shifted / 1440) * TAU;
+  };
+  const polar = (r,a)=>({x: CX + r*Math.cos(a), y: CY + r*Math.sin(a)});
+  const pathArc = (r1,r2,a0,a1)=>{ const p0o=polar(r2,a0), p1o=polar(r2,a1); const p0i=polar(r1,a0), p1i=polar(r1,a1); const large=(((a1-a0)%TAU)+TAU)%TAU>Math.PI?1:0; return `M ${p0o.x} ${p0o.y} A ${r2} ${r2} 0 ${large} 1 ${p1o.x} ${p1o.y} L ${p1i.x} ${p1i.y} A ${r1} ${r1} 0 ${large} 0 ${p0i.x} ${p0i.y} Z`; };
+
+  function localHMtoUTCMinutes(tz, hm){
+    const [H,M]=hm.split(':').map(Number);
+    const today=new Date();
+    const dstr=today.toLocaleDateString('en-CA',{timeZone:tz});
+    const localISO=`${dstr}T${hm}:00`;
+    const parts=new Intl.DateTimeFormat('en-US',{timeZone:tz,timeZoneName:'shortOffset'}).formatToParts(new Date(localISO));
+    const off=(parts.find(p=>p.type==='timeZoneName')||{}).value||'GMT+00:00';
+    const m=off.match(/GMT([+-])(\d{1,2})(?::(\d{2}))?/);
+    let sign=1,hh=0,mm=0; if(m){ sign=m[1]==='-'?-1:1; hh=+m[2]; mm=+(m[3]||'0'); }
+    let minutes=H*60+M - sign*(hh*60+mm);
+    return (minutes%1440+1440)%1440;
+  }
+  function buildUTC(){ for(const s of SESSIONS){ s.utcSegs = s.segs.map(([a,b])=>[localHMtoUTCMinutes(s.tz,a), localHMtoUTCMinutes(s.tz,b)]); } }
+  function isOpen(s){ const n=new Date(); const m=n.getUTCHours()*60+n.getUTCMinutes(); return s.utcSegs.some(([m0,m1])=> m0<=m1 ? (m>=m0 && m<m1) : (m>=m0 || m<m1)); }
+
+  function drawWheel(){
+    const svg=document.getElementById('wheel'); svg.innerHTML='';
+    const gR = document.createElementNS('http://www.w3.org/2000/svg','g'); svg.appendChild(gR);
+    const bg = document.createElementNS('http://www.w3.org/2000/svg','circle'); bg.setAttribute('cx',CX); bg.setAttribute('cy',CY); bg.setAttribute('r',R_OUT+14); bg.setAttribute('fill','var(--clock-bg)'); gR.appendChild(bg);
+    const outer = document.createElementNS('http://www.w3.org/2000/svg','circle'); outer.setAttribute('cx',CX); outer.setAttribute('cy',CY); outer.setAttribute('r',R_OUT); outer.setAttribute('fill','none'); outer.setAttribute('stroke','var(--ring-outer)'); outer.setAttribute('stroke-width','44'); gR.appendChild(outer);
+    const ring = document.createElementNS('http://www.w3.org/2000/svg','circle'); ring.setAttribute('cx',CX); ring.setAttribute('cy',CY); ring.setAttribute('r',R_RING); ring.setAttribute('fill','none'); ring.setAttribute('stroke','var(--ring-minute)'); ring.setAttribute('stroke-width','26'); gR.appendChild(ring);
+
+    const gt = document.createElementNS('http://www.w3.org/2000/svg','g'); svg.appendChild(gt);
+    const gNum = document.createElementNS('http://www.w3.org/2000/svg','g'); svg.appendChild(gNum);
+    const gMin = document.createElementNS('http://www.w3.org/2000/svg','g'); svg.appendChild(gMin);
+    for(let h=0;h<24;h++){
+      const a=minToAngle(h*60); const p0=polar(R_OUT-22,a), p1=polar(R_OUT+2,a);
+      const l=document.createElementNS('http://www.w3.org/2000/svg','line'); l.setAttribute('x1',p0.x); l.setAttribute('y1',p0.y); l.setAttribute('x2',p1.x); l.setAttribute('y2',p1.y); l.setAttribute('stroke','var(--ring-minute)'); l.setAttribute('stroke-width','3'); gt.appendChild(l);
+      for(let k=5;k<60;k+=5){ const a2=minToAngle(h*60+k); const q0=polar(R_OUT-12,a2), q1=polar(R_OUT+2,a2); const l2=document.createElementNS('http://www.w3.org/2000/svg','line'); l2.setAttribute('x1',q0.x); l2.setAttribute('y1',q0.y); l2.setAttribute('x2',q1.x); l2.setAttribute('y2',q1.y); l2.setAttribute('stroke','var(--ring-minute)'); l2.setAttribute('stroke-width','1.3'); gt.appendChild(l2); }
+      const lp=polar(R_OUT-36,a); const t=document.createElementNS('http://www.w3.org/2000/svg','text'); t.textContent=h===0?'24':String(h).padStart(2,'0'); t.setAttribute('x',lp.x); t.setAttribute('y',lp.y+4); t.setAttribute('fill','var(--ring-minute)'); t.setAttribute('font-size','14'); t.setAttribute('text-anchor','middle'); gNum.appendChild(t);
+    }
+    for(let m=5;m<=60;m+=5){ const a=minToAngle(m); const p=polar(R_RING+16,a); const t=document.createElementNS('http://www.w3.org/2000/svg','text'); t.textContent=String(m).padStart(2,'0'); t.setAttribute('x',p.x); t.setAttribute('y',p.y+4); t.setAttribute('fill','var(--ring-minute)'); t.setAttribute('font-size','12'); t.setAttribute('text-anchor','middle'); gMin.appendChild(t); }
+
+    const gBands = document.createElementNS('http://www.w3.org/2000/svg','g'); svg.appendChild(gBands);
+    const gHi = document.createElementNS('http://www.w3.org/2000/svg','g'); svg.appendChild(gHi);
+    const gLbl = document.createElementNS('http://www.w3.org/2000/svg','g'); svg.appendChild(gLbl);
+    const gDot = document.createElementNS('http://www.w3.org/2000/svg','g'); svg.appendChild(gDot);
+
+    const ringGap=26;
+    SESSIONS.forEach((s,i)=>{ s.ring = i<8?2 : i<16?1 : 0; });
+    for(const s of SESSIONS){
+      const rOut = R_BAND_OUT - s.ring*(ringGap+4); const rIn = rOut - ringGap;
+      for(const seg of s.utcSegs){
+        const [m0,m1]=seg;
+        const draw=(a,b,fill,op,into)=>{ const p=document.createElementNS('http://www.w3.org/2000/svg','path'); p.setAttribute('d', pathArc(rIn,rOut,minToAngle(a),minToAngle(b))); p.setAttribute('fill',fill); if(op!=null) p.setAttribute('fill-opacity',op); p.setAttribute('stroke','var(--ring-outer)'); p.setAttribute('stroke-width','1'); (into||gBands).appendChild(p); };
+        if(m0<=m1){ draw(m0,m1,'var(--clock-closed)',1); } else { draw(m0,1440,'var(--clock-closed)',1); draw(0,m1,'var(--clock-closed)',1); }
+      }
+      if(isOpen(s)){
+        for(const [m0,m1] of s.utcSegs){ const draw=(a,b)=>{ const p=document.createElementNS('http://www.w3.org/2000/svg','path'); p.setAttribute('d', pathArc(rIn,rOut,minToAngle(a),minToAngle(b))); p.setAttribute('fill','var(--accent)'); p.setAttribute('fill-opacity','.96'); p.setAttribute('stroke','#a9790a'); p.setAttribute('stroke-width','1'); gHi.appendChild(p); }; if(m0<=m1){ draw(m0,m1); } else { draw(m0,1440); draw(0,m1); } }
+      }
+      const [m0,m1]=s.utcSegs[0]; const mid=(m0+((m1-m0+1440)%1440)/2)%1440; const a= minToAngle(mid); const rp=(rIn+rOut)/2;
+      const pos={x:CX+rp*Math.cos(a), y:CY+rp*Math.sin(a)};
+      const tx=document.createElementNS('http://www.w3.org/2000/svg','text'); tx.textContent=s.name; tx.setAttribute('x',pos.x); tx.setAttribute('y',pos.y); tx.setAttribute('fill','var(--ring-minute)'); tx.setAttribute('font-size','11'); tx.setAttribute('text-anchor','middle'); tx.setAttribute('transform',`rotate(${(a*180/Math.PI)+90}, ${pos.x}, ${pos.y})`); gLbl.appendChild(tx);
+      const mp={x:CX+(rOut+6)*Math.cos(a), y:CY+(rOut+6)*Math.sin(a)}; const dot=document.createElementNS('http://www.w3.org/2000/svg','circle'); dot.setAttribute('cx',mp.x); dot.setAttribute('cy',mp.y); dot.setAttribute('r',4.5); dot.setAttribute('fill','var(--success)'); gDot.appendChild(dot);
+    }
+
+    const gH = document.createElementNS('http://www.w3.org/2000/svg','g'); svg.appendChild(gH);
+    function drawHands(){ const now=new Date(); const mUTC=now.getUTCHours()*60+now.getUTCMinutes()+now.getUTCSeconds()/60; const a=minToAngle(mUTC); const p={x:CX+(R_OUT-22)*Math.cos(a), y:CY+(R_OUT-22)*Math.sin(a)}; gH.innerHTML=''; const w=document.createElementNS('http://www.w3.org/2000/svg','path'); const backM=(mUTC-180+1440)%1440; w.setAttribute('d', pathArc(R_BAND_IN-30,R_OUT-44,minToAngle(backM),a)); w.setAttribute('fill','#67e8f9'); w.setAttribute('fill-opacity','.18'); gH.appendChild(w); const hand=document.createElementNS('http://www.w3.org/2000/svg','line'); hand.setAttribute('x1',CX); hand.setAttribute('y1',CY); hand.setAttribute('x2',p.x); hand.setAttribute('y2',p.y); hand.setAttribute('stroke','#e0ecff'); hand.setAttribute('stroke-width','6'); hand.setAttribute('stroke-linecap','round'); gH.appendChild(hand); const hub=document.createElementNS('http://www.w3.org/2000/svg','circle'); hub.setAttribute('cx',CX); hub.setAttribute('cy',CY); hub.setAttribute('r',6); hub.setAttribute('fill','#e0ecff'); gH.appendChild(hub); }
+    drawHands();
+    return drawHands;
+  }
+
+  const RATES=[
+    {sym:'EURUSD', pair:'EURO / U.S. DOLLAR', price:1.1702},
+    {sym:'USDJPY', pair:'U.S. DOLLAR / JAPANESE YEN', price:147.17, jpy:true},
+    {sym:'GBPUSD', pair:'BRITISH POUND / U.S. DOLLAR', price:1.2551},
+    {sym:'AUDUSD', pair:'AUSTRALIAN DOLLAR / U.S.', price:0.6500},
+    {sym:'USDCAD', pair:'U.S. DOLLAR / CANADIAN DOLLAR', price:1.3810},
+    {sym:'USDCHF', pair:'U.S. DOLLAR / SWISS FRANC', price:0.9385},
+    {sym:'NZDUSD', pair:'NEW ZEALAND DOLLAR / U.S.', price:0.5910},
+  ].map(x=>({ ...x, open:x.price, bid:x.price-0.0001, ask:x.price+0.0001, high:x.price, low:x.price }));
+
+  function tickRates(){
+    for(const r of RATES){
+      const drift=(Math.random()-0.5)*(r.jpy?0.04:0.0006);
+      r.price = +(r.price + drift).toFixed(r.jpy?3:5);
+      r.bid = +(r.price - (r.jpy?0.003:0.00005)).toFixed(r.jpy?3:5);
+      r.ask = +(r.price + (r.jpy?0.003:0.00005)).toFixed(r.jpy?3:5);
+      r.high = Math.max(r.high, r.price);
+      r.low  = Math.min(r.low, r.price);
+    }
+  }
+  function renderRates(){
+    const tb=document.querySelector('#rates tbody'); tb.innerHTML='';
+    for(const r of RATES){
+      const ch=r.price - r.open; const chPct = (ch / r.open * 100);
+      const tr=document.createElement('tr');
+      tr.innerHTML=`
+        <td><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Ccircle cx='7' cy='7' r='7' fill='%23191c1f'/%3E%3C/svg%3E" alt="" style="vertical-align:-2px"> ${r.sym}</td>
+        <td>${r.pair}</td>
+        <td class="num">${r.price.toFixed(r.jpy?3:5)}</td>
+        <td class="num ${ch>=0?'up':'down'}">${chPct.toFixed(2)}%</td>
+        <td class="num ${ch>=0?'up':'down'}">${(ch).toFixed(r.jpy?3:5)}</td>
+        <td class="num">${r.bid.toFixed(r.jpy?3:5)}</td>
+        <td class="num">${r.ask.toFixed(r.jpy?3:5)}</td>
+        <td class="num">${r.high.toFixed(r.jpy?3:5)}</td>
+        <td class="num">${r.low.toFixed(r.jpy?3:5)}</td>
+        <td>${chPct>0.1?'<span class="up">Strong buy</span>': chPct<-0.1?'<span class="down">Sell</span>':'Neutral'}</td>`;
+      tb.appendChild(tr);
+    }
+  }
+
+  // Render individual market clocks showing each market's local time and open/closed status.
+  function renderMarketClocks(){
+    const list = document.getElementById('marketClocks');
+    if(!list) return;
+    list.innerHTML = '';
+    const now = new Date();
+    for(const s of SESSIONS){
+      // Local time in the market's own time zone, format HH:MM
+      const localeTime = now.toLocaleTimeString('en-US', { timeZone: s.tz, hour: '2-digit', minute: '2-digit', hour12: false });
+      const open = isOpen(s);
+      const div = document.createElement('div');
+      div.className = 'mclock';
+      div.innerHTML = `<div class="name">${s.name}</div><div class="time">${localeTime}</div><div class="status" style="color:${open ? 'var(--success)' : 'var(--ring-minute)'}">${open ? 'Open' : 'Closed'}</div>`;
+      list.appendChild(div);
+    }
+  }
+
+  const STORIES=[
+    {when:'yesterday', by:'TradingView', title:'WULF: TeraWulf Stock Pumps 60% as Google Pledges $1.8 Billion in Massive AI Hosting Deal'},
+    {when:'2 days ago', by:'TradingView', title:'GBP/USD: Sterling Resumes Upswing to Challenge $1.36 After UK GDP Slows but Tops Estimates'},
+    {when:'2 days ago', by:'TradingView', title:'EUR/USD: Euro Chases $1.17 After Soft US Inflation Knocks the Dollar Lower — What’s Next?'},
+    {when:'3 days ago', by:'TradingView', title:'IXIC: Nasdaq Composite Soars 1.4% to Record on Upbeat Inflation Data. Meta Leads the Mag 7 Pack.'},
+    {when:'4 days ago', by:'TradingView', title:'DJI: Dow Jones Sheds 200 Points Despite New Tariff Extension for China. Is It Inflation Scaries?'}
+  ];
+  function renderStories(){
+    const box=document.getElementById('stories'); box.innerHTML='';
+    for(const s of STORIES){
+      const row=document.createElement('div'); row.className='item';
+      row.innerHTML = `<div class="dot"></div>
+        <div><div style="font-weight:600">${s.title}</div><div class="meta">${s.when} · ${s.by}</div></div>`;
+      box.appendChild(row);
+    }
+  }
+
+  function drawGauge(){
+    const svg=document.getElementById('gauge'); svg.innerHTML='';
+    const cx=110, cy=110, r=90; const start=-Math.PI, end=0;
+    const bullPct = 0.67;
+    function arc(a0,a1,stroke){ const large=(a1-a0)>Math.PI?1:0; const x0=cx+r*Math.cos(a0), y0=cy+r*Math.sin(a0); const x1=cx+r*Math.cos(a1), y1=cy+r*Math.sin(a1); const p=document.createElementNS('http://www.w3.org/2000/svg','path'); p.setAttribute('d',`M ${x0} ${y0} A ${r} ${r} 0 ${large} 1 ${x1} ${y1}`); p.setAttribute('fill','none'); p.setAttribute('stroke',stroke); p.setAttribute('stroke-width','16'); p.setAttribute('stroke-linecap','round'); return p; }
+    svg.appendChild(arc(start,end,'#e5ebf3'));
+    svg.appendChild(arc(start, start + (end-start)*bullPct, '#10b981'));
+  }
+
+  function tickHeader(){
+    const now = new Date();
+    const t = now.toUTCString().split(' ').slice(0,5).join(' ');
+    document.getElementById('updTime').textContent = t;
+  }
+
+  buildUTC();
+  // Initial render of the wheel and capture the returned function that updates the hands.
+  let updateHands = drawWheel();
+  renderStories(); drawGauge(); tickRates(); renderRates(); tickHeader();
+  renderMarketClocks();
+  setInterval(() => {
+    updateHands();
+    tickRates();
+    renderRates();
+    tickHeader();
+    renderMarketClocks();
+  }, 1000);
+
+  // Set up the time‑zone selector. When the user selects a new zone, compute its offset
+  // relative to UTC, store it in tzOffsetMinutes, re‑draw the wheel and update the hand updater.
+  const tzSel = document.getElementById('tzSelect');
+  if (tzSel) {
+    tzSel.addEventListener('change', (ev) => {
+      const tz = ev.target.value;
+      tzOffsetMinutes = tz === 'UTC' ? 0 : getTZOffset(tz);
+      // Redraw the clock with new offset; refresh the hand updater.
+      updateHands = drawWheel();
+
+      // Update the clock foot to reflect selected zone.  Show both the zone name and the static legend.
+      const foot = document.querySelector('.clock-foot');
+      if (foot) {
+        const label = tz === 'UTC' ? 'UTC' : tz;
+        foot.textContent = `Live ${label} dial · Highlights show currently open sessions`;
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>
